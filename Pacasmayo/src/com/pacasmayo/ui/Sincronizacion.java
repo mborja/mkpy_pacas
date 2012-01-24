@@ -91,7 +91,7 @@ public class Sincronizacion extends MainScreen implements ListFieldCallback {
 				if(vendedor.getTipoVendedor().equals("2") || vendedor.getTipoVendedor().equals("3")){
 					enviarIndustrial();
 				}else{
-					Dialog.inform("No puede sincronizar visitas de productos masivos");
+					Dialog.inform("No puede sincronizar visitas de productos industriales");
 				}
 			}
 			return true;

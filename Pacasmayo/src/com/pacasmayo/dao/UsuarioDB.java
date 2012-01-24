@@ -173,7 +173,7 @@ public class UsuarioDB {
     	VendedorDB vendedores = new VendedorDB();
     	
     	if ( ! vendedores.getRemote() ) {
-        	Dialog.inform("Error. Acceso denegado" + vendedores.getMsgError());
+        	Dialog.inform("Error. Acceso denegado");
         	progressSync.close();
     		return false;
     	}else{

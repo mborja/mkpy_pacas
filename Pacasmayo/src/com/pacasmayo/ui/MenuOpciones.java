@@ -47,7 +47,7 @@ public class MenuOpciones extends MainScreen implements ListFieldCallback {
     		if(vendedor.getTipoVendedor().equals("2") || vendedor.getTipoVendedor().equals("3") ){
     			Estilos.pushScreen(new ClientesIndustrial());
      		}else{
-     			Dialog.inform("No tiene acceso a clientes Industruales");
+     			Dialog.inform("No tiene acceso a clientes Industriales");
      		}
     	} else if( menu.getSelectedIndex() == 3 ) { // Sincronización
         	//
