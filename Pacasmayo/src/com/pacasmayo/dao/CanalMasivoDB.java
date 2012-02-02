@@ -34,7 +34,7 @@ import com.pacasmayo.entidades.Usuario;
 public class CanalMasivoDB {
 	private static final String RESPONSE_OK = "1";
     private static final String metodoWeb = "getListadoClientesCanalMasivo";
-    private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-ListadoClientesCanalMasivo1", DATA;
+    private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-ListadoClientesCanalMasivo", DATA;
     private static PersistentObject persist;
     private static final long IDSTORE = 0x478039d9404e56d2L; // com.pacasmayo.entidades.CanalMasivo    
     private Vector objetos;
