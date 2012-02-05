@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Vector;
 
 import javax.microedition.io.Connector;
 import javax.microedition.io.HttpConnection;
@@ -25,12 +24,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.pacasmayo.entidades.Usuario;
-import com.pacasmayo.entidades.Vendedor;
 import com.pacasmayo.utilidades.Cadenas;
 import com.pacasmayo.utilidades.Fechas;
 import com.pacasmayo.utilidades.Sistema;
 import com.makipuray.ui.mkpyStatusProgress;
-
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -44,10 +41,8 @@ public class UsuarioDB {
     private static PersistentObject persist;
     private static final long IDSTORE = 0x1dad7ef6fa646871L; // com.pacasmayo.entidades.Usuario    
     private Usuario usuario;
-    private Vendedor vendedor;
     private String codigo;
     private String clave;
-    private int tipoVendedor=0;
     private mkpyStatusProgress progress = new mkpyStatusProgress("");   
     
     /**
@@ -163,100 +158,72 @@ public class UsuarioDB {
     	usuario.setSincronizado(false);
     	this.actualizar();
     	progressSync.open();
-    	
-    	//Tipo de vendedor
-    	//0: No autorizado
-    	//1: Vendedor Masivo
-    	//2: Vendedor Industrial
-    	//3: Vendedor de Ambos
-    	
-    	VendedorDB vendedores = new VendedorDB();
-    	
-    	if ( ! vendedores.getRemote() ) {
-        	Dialog.inform("Error. Acceso denegado");
+        
+    	/*
+    	MarcaDBCM marcascm = new MarcaDBCM();
+    	if ( ! marcascm.getRemote() ) {
+        	Dialog.inform("Error. Marcas Masivas" + marcascm.getMsgError());
         	progressSync.close();
     		return false;
-    	}else{
-    		Vector lista = (Vector) vendedores.getObjetos();
-    		Vendedor vendedor = (Vendedor) lista.elementAt(0) ;
-    		tipoVendedor = Integer.parseInt(vendedor.getTipoVendedor()) ;
-    		if(tipoVendedor==0){
-    			Dialog.inform("Error. Acceso denegado" + vendedores.getMsgError());
-            	progressSync.close();
-        		return false;
-    		}
     	}
+    	marcascm = null;
+    	progressSync.setProgress(20);
     	
-    	if(tipoVendedor==1 || tipoVendedor==3){
-        
-	    	MarcaDBCM marcascm = new MarcaDBCM();
-	    	if ( ! marcascm.getRemote() ) {
-	        	Dialog.inform("Error. Marcas Masivas" + marcascm.getMsgError());
-	        	progressSync.close();
-	    		return false;
-	    	}
-	    	marcascm = null;
-	    	progressSync.setProgress(20);
-    	
+    	MarcaDBCI marcasci = new MarcaDBCI();
+    	if ( ! marcasci.getRemote() ) {
+        	Dialog.inform("Error. Marcas Industriales " + marcasci.getMsgError());
+        	progressSync.close();
+    		return false;
     	}
+    	marcasci = null;
+    	progressSync.setProgress(30);
     	
-    	if(tipoVendedor==2 || tipoVendedor==3){
-    	
-    		MarcaDBCI marcasci = new MarcaDBCI();
-        	if ( ! marcasci.getRemote() ) {
-            	Dialog.inform("Error. Marcas Industriales " + marcasci.getMsgError());
-            	progressSync.close();
-        		return false;
-        	}
-        	marcasci = null;
-        	progressSync.setProgress(30);
-        	
-        	TipoObraDB tipoObra = new TipoObraDB();
-        	if ( ! tipoObra.getRemote() ) {
-            	Dialog.inform("Error. Tipos de obras " + tipoObra.getMsgError());
-            	progressSync.close();
-        		return false;
-        	}
-        	tipoObra = null;
-        	progressSync.setProgress(40);
-        	
-        	ProductoDB producto = new ProductoDB();
-        	if ( ! producto.getRemote() ) {
-            	Dialog.inform("Error. Productos " + producto.getMsgError());
-            	progressSync.close();
-        		return false;
-        	}
-        	producto = null;
-        	progressSync.setProgress(50);
-        	
-        	UnidadMedidaDB unidadMedida = new UnidadMedidaDB();
-        	if ( ! unidadMedida.getRemote() ) {
-            	Dialog.inform("Error. Unidades de medida " + unidadMedida.getMsgError());
-            	progressSync.close();
-        		return false;
-        	}
-        	producto = null;
-        	progressSync.setProgress(60);    	
-        	
-        	ProveedorDB proveedor = new ProveedorDB();
-        	if ( ! proveedor.getRemote() ) {
-            	Dialog.inform("Error. Proveedores " + proveedor.getMsgError());
-            	progressSync.close();
-        		return false;
-        	}
-        	proveedor = null;
-        	progressSync.setProgress(70);  
-        	
-        	FrecuenciaDB frecuencia = new FrecuenciaDB();
-        	if ( ! frecuencia.getRemote() ) {
-            	Dialog.inform("Error. Frecuencias " + frecuencia.getMsgError());
-            	progressSync.close();
-        		return false;
-        	}
-        	frecuencia = null;
-        	progressSync.setProgress(80);
-    		
+    	TipoObraDB tipoObra = new TipoObraDB();
+    	if ( ! tipoObra.getRemote() ) {
+        	Dialog.inform("Error. Tipos de obras " + tipoObra.getMsgError());
+        	progressSync.close();
+    		return false;
     	}
+    	tipoObra = null;
+    	progressSync.setProgress(40);
+    	
+    	ProductoDB producto = new ProductoDB();
+    	if ( ! producto.getRemote() ) {
+        	Dialog.inform("Error. Productos " + producto.getMsgError());
+        	progressSync.close();
+    		return false;
+    	}
+    	producto = null;
+    	progressSync.setProgress(50);
+    	
+    	UnidadMedidaDB unidadMedida = new UnidadMedidaDB();
+    	if ( ! unidadMedida.getRemote() ) {
+        	Dialog.inform("Error. Unidades de medida " + unidadMedida.getMsgError());
+        	progressSync.close();
+    		return false;
+    	}
+    	producto = null;
+    	progressSync.setProgress(60);    	
+    	
+    	ProveedorDB proveedor = new ProveedorDB();
+    	if ( ! proveedor.getRemote() ) {
+        	Dialog.inform("Error. Proveedores " + proveedor.getMsgError());
+        	progressSync.close();
+    		return false;
+    	}
+    	proveedor = null;
+    	progressSync.setProgress(70);  
+    	
+    	FrecuenciaDB frecuencia = new FrecuenciaDB();
+    	if ( ! frecuencia.getRemote() ) {
+        	Dialog.inform("Error. Frecuencias " + frecuencia.getMsgError());
+        	progressSync.close();
+    		return false;
+    	}
+    	frecuencia = null;
+    	progressSync.setProgress(80);
+    	
+    	*/
     	
     	usuario.setSincronizado(true);
     	this.actualizar();
@@ -265,7 +232,6 @@ public class UsuarioDB {
 		return true;
 
     }
-    
 	
 }
 

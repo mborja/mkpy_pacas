@@ -1,5 +1,7 @@
 package com.pacasmayo.ui;
 
+import java.util.Vector;
+
 import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.ui.Color;
 import net.rim.device.api.ui.Field;
@@ -14,10 +16,11 @@ import net.rim.device.api.ui.container.HorizontalFieldManager;
 import net.rim.device.api.ui.container.MainScreen;
 import net.rim.device.api.ui.container.VerticalFieldManager;
 
+import com.pacasmayo.dao.TipoUsuarioDB;
 import com.pacasmayo.dao.UsuarioDB;
-import com.pacasmayo.dao.VendedorDB;
+import com.pacasmayo.entidades.Frecuencia;
+import com.pacasmayo.entidades.TipoUsuario;
 import com.pacasmayo.entidades.Usuario;
-import com.pacasmayo.entidades.Vendedor;
 import com.pacasmayo.utilidades.Estilos;
 import com.pacasmayo.utilidades.Sistema;
 import com.makipuray.ui.mkpyLabelField;
@@ -26,7 +29,6 @@ public class MenuOpciones extends MainScreen implements ListFieldCallback {
     private ListField menu;
     private String[] opciones = {"Plan de visitas", " Canal masivo", " Canal industrial", "Sincronización", " Envío de pendientes"} ;
     private Usuario usuario;
-    private Vendedor vendedor;
 
     public boolean onClose() {
     	if(Dialog.ask(Dialog.D_YES_NO, "Desea salir del aplicativo?") != Dialog.NO)
@@ -37,18 +39,10 @@ public class MenuOpciones extends MainScreen implements ListFieldCallback {
     private void seleccion() {
     	if( menu.getSelectedIndex() == 0 ) { // Plan de visitas
         	//
-    	} else if( menu.getSelectedIndex() == 1  ) { // Canal Masivo
-    		if(vendedor.getTipoVendedor().equals("1") || vendedor.getTipoVendedor().equals("3")){
-    		   Estilos.pushScreen(new ClientesMasivo());
-    		}else{
-    			Dialog.inform("No tiene acceso a clientes Masivos");
-    		}
+    	} else if( menu.getSelectedIndex() == 1 ) { // Canal Masivo
+    		Estilos.pushScreen(new ClientesMasivo());
     	} else if( menu.getSelectedIndex() == 2 ) { // Canal Industrial
-    		if(vendedor.getTipoVendedor().equals("2") || vendedor.getTipoVendedor().equals("3") ){
-    			Estilos.pushScreen(new ClientesIndustrial());
-     		}else{
-     			Dialog.inform("No tiene acceso a clientes Industriales");
-     		}
+    		Estilos.pushScreen(new ClientesIndustrial());
     	} else if( menu.getSelectedIndex() == 3 ) { // Sincronización
         	//
     	} else if( menu.getSelectedIndex() == 4 ) { // Envío de pendientes
@@ -61,9 +55,15 @@ public class MenuOpciones extends MainScreen implements ListFieldCallback {
         UsuarioDB usuarios = new UsuarioDB();
     	usuario = usuarios.getUsuario();
     	usuarios = null;
-    	VendedorDB vendedores = new VendedorDB();
-    	vendedor = vendedores.getVendedor();
 //    	setTitle("Menú de opciones");
+    	
+    	TipoUsuario rol = new TipoUsuario(); 
+    	TipoUsuarioDB roles = new TipoUsuarioDB();
+    	if(roles.getRemote()==true)
+    	{
+    		rol = roles.getTipoUsuario();
+    		
+    	}
         
         HorizontalFieldManager hField = new HorizontalFieldManager() {
     		protected void sublayout(int width, int height) {
@@ -123,8 +123,8 @@ public class MenuOpciones extends MainScreen implements ListFieldCallback {
 		return super.navigationClick(status, time);
 	}
 
-    public void drawListRow(ListField list, Graphics g, int index, int y, int w) {        
-    	if ( list.getSelectedIndex() == index ) {
+    public void drawListRow(ListField list, Graphics g, int index, int y, int w) {
+        if ( list.getSelectedIndex() == index ) {
         } else {
             if( index == 0 || index == 3 ) {
                 g.setColor(Color.WHITE);
@@ -155,4 +155,6 @@ public class MenuOpciones extends MainScreen implements ListFieldCallback {
     public Object get(ListField listField, int index) {
         return null;
     }
+
+     
 }

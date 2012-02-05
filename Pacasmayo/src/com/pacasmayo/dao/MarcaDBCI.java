@@ -113,6 +113,7 @@ public class MarcaDBCI {
     public boolean getRemote() {
 		try {
 			SoapObject request = new SoapObject("http://tempuri.org", metodoWeb);
+			//Dialog.inform("" + Sistema.getPin());
 			request.addProperty("idBlackBerry", Sistema.getPin());
 			request.addProperty("idUsuario", usuario.getCodigoTrabajador());
 			
