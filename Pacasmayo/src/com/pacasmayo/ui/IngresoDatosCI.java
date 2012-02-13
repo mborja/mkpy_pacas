@@ -62,7 +62,7 @@ public class IngresoDatosCI extends MainScreen implements FieldChangeListener, F
 	private mkpyLabelEditField txtCantidad = new mkpyLabelEditField("Cantidad:", "", 15, EditField.FIELD_LEFT | EditField.NO_NEWLINE | EditField.FILTER_REAL_NUMERIC, Color.BLACK, Color.WHITE);
 	private mkpyLabelChoiceField cboUnidadMedida;
 	private mkpyLabelChoiceField cboFrecuencia;
-	private mkpyLabelEditField txtPrecioCompra = new mkpyLabelEditField("Precio de Compra:", "", 15, EditField.FIELD_LEFT | EditField.NO_NEWLINE | EditField.FILTER_NUMERIC, Color.BLACK, Color.WHITE);
+	private mkpyLabelEditField txtPrecioCompra = new mkpyLabelEditField("Precio de Compra:", "", 15, EditField.FIELD_LEFT | EditField.NO_NEWLINE | EditField.FILTER_REAL_NUMERIC , Color.BLACK, Color.WHITE);
 	private mkpyLabelEditField txtEstatus = new mkpyLabelEditField("Estado:", "", 15, EditField.FIELD_LEFT | EditField.NO_NEWLINE | EditField.FILTER_NUMERIC, Color.BLACK, Color.WHITE);
 	private mkpyLabelEditField txtResidente = new mkpyLabelEditField("Residente:", "", 15, EditField.FIELD_LEFT | EditField.NO_NEWLINE | EditField.FILTER_DEFAULT , Color.BLACK, Color.WHITE);
 	private mkpyLabelEditField txtObs = new mkpyLabelEditField("Observacion:", "", 200, EditField.FIELD_LEFT | EditField.NO_NEWLINE | EditField.FILTER_DEFAULT, Color.BLACK, Color.WHITE);
@@ -192,10 +192,19 @@ public class IngresoDatosCI extends MainScreen implements FieldChangeListener, F
         	
         	if(txtEstatus.getText().getText().length()==0){
         		txtEstatus.setFocus();
-        		Dialog.inform("Debe ingresar estatus");
+        		Dialog.inform("Debe ingresar estado");
         		return;
         	}
         	
+        	
+        	int validaEstado=Integer.parseInt(txtEstatus.getText().getText());
+        	if(validaEstado>100 || validaEstado<0){
+        		txtEstatus.setFocus();
+        		Dialog.inform("Valor de estado fuera de rango (0-100)");
+        		return;
+        	} 
+        	
+        	/* Residente y Observacion son opcionales
         	if(txtResidente.getText().getText().length()==0){
         		txtResidente.setFocus();
         		Dialog.inform("Debe ingresar Residente");
@@ -207,7 +216,7 @@ public class IngresoDatosCI extends MainScreen implements FieldChangeListener, F
         		Dialog.inform("Debe ingresar una observacion");
         		return;
         	}
-        	
+        	*/
         	boolean nuevo = false;
     		String resultado = "";
     		TipoObra tipoObra = (TipoObra) tipoObras.getObjetos().elementAt(cboTipoObra.getSelectedIndex());

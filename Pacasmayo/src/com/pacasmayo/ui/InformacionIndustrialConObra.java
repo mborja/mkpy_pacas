@@ -39,6 +39,7 @@ public class InformacionIndustrialConObra extends MainScreen implements ListFiel
     private boolean refresca = false;
     private long fDesde, fHasta;
     private static final int NROLINEAS = 2;
+    private int nVisitas=0;
     
     public InformacionIndustrialConObra(CanalIndustrial ci) {
     	UsuarioDB usuarios = new UsuarioDB();
@@ -62,9 +63,17 @@ public class InformacionIndustrialConObra extends MainScreen implements ListFiel
     	add(lstTitulo);
         add(lstObras);
     	
-        addMenuItem(mnVisita);
+        nVisitas = result.size();
+        if(nVisitas==0){
+        	addMenuItem(mnSeleccionar);
+        	addMenuItem(mnVisita);
+        }
+        	
+        	
+        /* Se quitaron las opciones Ingresar y Modificar.
         addMenuItem(mnIngresar);
         addMenuItem(mnModificar);
+        */
         addMenuItem(mnEliminar);
         
         lstObras.select(true);
@@ -111,6 +120,12 @@ public class InformacionIndustrialConObra extends MainScreen implements ListFiel
         	}else{
         		Dialog.inform("Debe seleccionar una obra");
         	}
+        }
+    };
+    
+    MenuItem mnSeleccionar = new MenuItem("Asociar Obra", 110, 10) {
+        public void run() {
+        	Estilos.pushScreen(new InformacionIndustrialConObraSeleccionar(canalIndustrial));
         }
     };
     

@@ -27,17 +27,17 @@ import net.rim.device.api.xml.parsers.DocumentBuilderFactory;
 
 import com.pacasmayo.dao.UsuarioDB;
 import com.makipuray.ui.mkpyStatusProgress;
-import com.pacasmayo.entidades.MarcaCI;
+import com.pacasmayo.entidades.Obra;
 import com.pacasmayo.entidades.Usuario;
 import com.pacasmayo.utilidades.Cadenas;
 import com.pacasmayo.utilidades.Sistema;
 
-public class MarcaDBCI {
+public class ObraDB {
 	private static final String RESPONSE_OK = "1";
-    private static final String metodoWeb = "getListadoMarcasCI";
+    private static final String metodoWeb = "getListadoCuadroObra";
     private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-ListasMaestras1", DATA;
     private static PersistentObject persist;
-    private static final long IDSTORE = 0x34c567a93baa6ca9L; // com.pacasmayo.entidades.MarcaCI    
+    private static final long IDSTORE = 0x82996e0f833f548cL; // com.pacasmayo.entidades.TipoObraDB    
     private Vector objetos;
     private Usuario usuario;
     private int state = 0;
@@ -46,7 +46,7 @@ public class MarcaDBCI {
     /**
      * Constructor del DAO para el CanalMasivo
      */
-    public MarcaDBCI() {
+    public ObraDB() {
     	UsuarioDB usuarios = new UsuarioDB();
     	usuario = usuarios.getUsuario();
     	usuarios = null;
@@ -73,7 +73,7 @@ public class MarcaDBCI {
     
     private boolean fillObjectos(String result) throws Exception {
     	String registro = "";
-    	String[] fields;
+    	String[] fields; 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         ByteArrayInputStream bis = new ByteArrayInputStream(result.getBytes("UTF-8"));
@@ -94,15 +94,25 @@ public class MarcaDBCI {
             if ( state == 0 ) {
             	return false;
             }
-            for (int i = 1; i < n; i++) {
+            try{
+            for (int i = 1; i < node.getLength()-1 ; i++) {
                 Node contactNode = node.item(i);
                 registro = contactNode.getChildNodes().item(0).getNodeValue();
                 fields = Cadenas.splitSimple(registro, Cadenas.TOKEN);
-                MarcaCI item = new MarcaCI();
+                Obra item = new Obra();
                 item.setCodigo(fields[0]);
-                item.setCodigoProducto(fields[1]);
-                item.setDescripcion(fields[2]);
+                item.setNombre(fields[1].concat("                     "));
+                if(fields.length<3)
+                {
+                	item.setDescripcion("                     ");
+                }else{
+                	item.setDescripcion(fields[2].concat("                     "));
+                }
+                
                 objetos.addElement(item);
+            }
+            }catch(Exception ex){
+            	Dialog.inform(ex.getMessage());
             }
             persist.setContents(objetos);
             persist.commit();
@@ -113,6 +123,7 @@ public class MarcaDBCI {
     public boolean getRemote() {
 		try {
 			SoapObject request = new SoapObject("http://tempuri.org", metodoWeb);
+			//Dialog.inform("" + Sistema.getPin());
 			request.addProperty("idBlackBerry", Sistema.getPin());
 			request.addProperty("idUsuario", usuario.getCodigoTrabajador());
 			
@@ -137,11 +148,11 @@ public class MarcaDBCI {
     }
     
     public int getIndexById(String id) {
-    	MarcaCI item = null;
+    	Obra item = null;
         int i, n;
         n = objetos.size();
         for (i = 0; i < n; i++) {
-        	item = (MarcaCI) objetos.elementAt(i);
+        	item = (Obra) objetos.elementAt(i);
             if(id.equals(item.getCodigo())){
                 return i;
             }

@@ -2,6 +2,9 @@ package com.pacasmayo.ui;
 
 import java.util.Vector;
 
+import com.pacasmayo.dao.VendedorDB;
+import com.pacasmayo.entidades.Vendedor;
+
 import com.pacasmayo.dao.InformacionCMDB;
 import com.pacasmayo.entidades.InformacionCM;
 
@@ -24,6 +27,8 @@ import net.rim.device.api.ui.container.MainScreen;
 public class Sincronizacion extends MainScreen implements ListFieldCallback {
     private ListField menu;
     private mkpyStatusProgress progress = new mkpyStatusProgress(""); 
+    
+    private Vendedor vendedor;
 
     private InformacionCMDB informesCM = new InformacionCMDB();
     private InformacionCIDB informesCI = new InformacionCIDB();
@@ -36,6 +41,10 @@ public class Sincronizacion extends MainScreen implements ListFieldCallback {
 	private String[] opciones = {"Pendientes de envío", "", ""};
 
 	public Sincronizacion() {
+		
+		VendedorDB lista = new VendedorDB();
+		vendedor = lista.getVendedor();
+		
 //		setTitle("Pendientes");
 		informesCM = new InformacionCMDB();
 		informesCI = new InformacionCIDB();
@@ -72,10 +81,18 @@ public class Sincronizacion extends MainScreen implements ListFieldCallback {
 		Field field = this.getFieldWithFocus();
 		if(field == menu) {
 			if ( menu.getSelectedIndex() == 1 ) {
-				enviarMasivo();
+				if(vendedor.getTipoVendedor().equals("1") || vendedor.getTipoVendedor().equals("3")){
+					enviarMasivo();
+				}else{
+					Dialog.inform("No puede sincronizar visitas de productos masivos");
+				}
 			}
 			if ( menu.getSelectedIndex() == 2 ) {
-				enviarIndustrial();
+				if(vendedor.getTipoVendedor().equals("2") || vendedor.getTipoVendedor().equals("3")){
+					enviarIndustrial();
+				}else{
+					Dialog.inform("No puede sincronizar visitas de productos industriales");
+				}
 			}
 			return true;
 		}

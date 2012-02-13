@@ -18,8 +18,8 @@ import net.rim.device.api.ui.component.Dialog;
 
 public final class Cadenas {
     public static final String TOKEN = "¬";
-    public static final String URLBASE = "http://10.34.2.62";
-    //public static final String URLBASE = "http://portal.dino.com.pe";
+    //public static final String URLBASE = "http://10.34.2.62";
+    public static final String URLBASE = "http://portal.dino.com.pe";
     public static final String URIServer = "";
     public static final String urlDownload = "";
     
