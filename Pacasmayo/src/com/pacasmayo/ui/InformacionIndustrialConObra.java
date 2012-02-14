@@ -52,7 +52,7 @@ public class InformacionIndustrialConObra extends MainScreen implements ListFiel
     	add(new mkpyLabelLabelField("Fecha V.: ", ci.getFechaFormato(), LabelField.NON_FOCUSABLE, Color.BLACK, Color.WHITE));
 		
 		canalIndustrial = ci;
-		result = ci.getObras();
+		result = ci.getObrasByFechaCI();
 		lstTitulo =  new ListField(1, ListField.FIELD_HCENTER | ListField.NON_FOCUSABLE);
     	lstTitulo.setCallback(this);
     	lstObras = new ListField(result.size(), ListField.FIELD_HCENTER);
@@ -68,14 +68,8 @@ public class InformacionIndustrialConObra extends MainScreen implements ListFiel
         	addMenuItem(mnSeleccionar);
         	addMenuItem(mnVisita);
         }
-        	
-        	
-        /* Se quitaron las opciones Ingresar y Modificar.
-        addMenuItem(mnIngresar);
-        addMenuItem(mnModificar);
-        */
+
         addMenuItem(mnEliminar);
-        
         lstObras.select(true);
 
     }
@@ -137,10 +131,10 @@ public class InformacionIndustrialConObra extends MainScreen implements ListFiel
         delete(lstObras);
         lstObras.invalidate();
         
-        CanalIndustrialDB canalI = new CanalIndustrialDB();
-        CanalIndustrial ci = canalI.getByIndex(canalI.getIndexById(canalIndustrial.getCodigo()));
-        canalIndustrial = ci ; 
-		result = canalIndustrial.getObras();
+        //CanalIndustrialDB canalI = new CanalIndustrialDB();
+        //CanalIndustrial ci = canalI.getByIndex(canalI.getIndexById(canalIndustrial.getCodigo()));
+        //canalIndustrial = ci ; 
+		result = canalIndustrial.getObrasByFechaCI();
 		
     	lstObras = new ListField(result.size(), ListField.FIELD_HCENTER);
     	lstObras.setCallback(this);

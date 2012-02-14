@@ -48,6 +48,16 @@ public final class CanalIndustrial implements Persistable {
 	public Vector getObras() {
 		return obras;
 	}
+	public Vector getObrasByFechaCI() {
+		Vector result = new Vector();
+		for(int i=0;i<obras.size();i++){
+			Obra obra = (Obra) obras.elementAt(i);
+			if(obra.getFecha()==this.fecha){
+				result.addElement(obra);
+			}
+		}
+		return result;
+	}
 	public void setObras(Vector obras) {
 		this.obras = obras;
 	}

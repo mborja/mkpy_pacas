@@ -37,7 +37,7 @@ public class ObraDB {
     private static final String metodoWeb = "getListadoCuadroObra";
     private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-ListasMaestras1", DATA;
     private static PersistentObject persist;
-    private static final long IDSTORE = 0x82996e0f833f548cL; // com.pacasmayo.entidades.TipoObraDB    
+    private static final long IDSTORE = 0xbd7748bc9ec8a445L; // com.pacasmayo.entidades.ObraDB    
     private Vector objetos;
     private Usuario usuario;
     private int state = 0;

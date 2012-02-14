@@ -107,15 +107,13 @@ public class ObraMantenimiento extends MainScreen implements ListFieldCallback, 
     MenuItem mnGrabar = new MenuItem("Grabar", 110, 10) {
         public void run() {
         	if(validar()){
-	        	Date fecha = Fechas.stringToDate(canalIndustrial.getFecha());
-	        	String sFecha = Fechas.dateToString(fecha,"yyyyMMdd");
 	        	Obra obra = getObra();
 	        	if(operacion=="NUEVO"){
 		        	obra.setGeneradoEnCelular("X");
 		        	obra.setAutocodigo();
 	        	}
 	        	obra.setCodigoCliente(canalIndustrial.getCodigo());
-	        	obra.setFecha(sFecha);
+	        	obra.setFecha(canalIndustrial.getFecha());
 	        	obra.setNombre(txtNombreObra.getText().getText());
 	        	obra.setDescripcion(txtDescripcionObra.getText().getText());
 	        	Vector listaObras = canalIndustrial.getObras();

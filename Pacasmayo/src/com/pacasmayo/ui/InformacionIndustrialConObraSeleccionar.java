@@ -89,25 +89,28 @@ public class InformacionIndustrialConObraSeleccionar extends MainScreen implemen
  
     MenuItem mnGrabar = new MenuItem("Asociar Obra a Cliente", 110, 10) {
         public void run() {
-//        	if(validar()){
-	        	Date fecha = Fechas.stringToDate(canalIndustrial.getFecha());
-	        	String sFecha = Fechas.dateToString(fecha,"yyyyMMdd");
+           	Obra obraSeleccion = seleccion();
+        	if( obraSeleccion != null){
+        		
 	        	Obra obra = new Obra();
-	        	Obra obraSeleccion = seleccion();
-
 		        obra.setGeneradoEnCelular("X");
 		        obra.setCodigo(obraSeleccion.getCodigo());
 	        	obra.setCodigoCliente(canalIndustrial.getCodigo());
-	        	obra.setFecha(sFecha);
+	        	obra.setFecha(canalIndustrial.getFecha());
 	        	obra.setNombre(obraSeleccion.getNombre());
 	        	obra.setDescripcion(obraSeleccion.getDescripcion());
-	        	Vector listaObrasCliente = canalIndustrial.getObras();
+	        	Vector listaObrasCliente = canalIndustrial.getObrasByFechaCI();
 	        	
 	        	listaObrasCliente.addElement(obra);
 	        		canalIndustrial.setObras(listaObrasCliente );
 	        		Dialog.inform("La obra se asoció correctamente");      	
 	        	close();
-//        	}
+        	}
+        	else
+        	{
+        		Dialog.inform("Debe seleccionar una obra.");    
+        		return;
+        	}
         }
     };
 

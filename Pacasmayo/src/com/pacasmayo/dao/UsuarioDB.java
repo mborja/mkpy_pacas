@@ -211,7 +211,7 @@ public class UsuarioDB {
         	marcasci = null;
         	progressSync.setProgress(30);
         	
-        	/*
+        //TODO:Revisar porque se comentó
         	TipoObraDB tipoObra = new TipoObraDB();
         	if ( ! tipoObra.getRemote() ) {
             	Dialog.inform("Error. Tipos de obras " + tipoObra.getMsgError());
@@ -220,7 +220,7 @@ public class UsuarioDB {
         	}
         	tipoObra = null;
         	progressSync.setProgress(40);
-        	*/
+        	
         	ObraDB Obra = new ObraDB();
         	if ( ! Obra.getRemote() ) {
             	Dialog.inform("Error. Obras " + Obra.getMsgError());
