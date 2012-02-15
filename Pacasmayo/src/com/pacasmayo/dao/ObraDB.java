@@ -190,5 +190,11 @@ public class ObraDB {
 		this.msgError = msgError;
 	}
 
+	public void setObjetos(Vector objetos) {
+		this.objetos = objetos;
+		persist.setContents(objetos);
+        persist.commit();
+	}
+
     
 }

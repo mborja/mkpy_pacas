@@ -121,6 +121,7 @@ public class InformacionIndustrialConObraSeleccionar extends MainScreen implemen
 	        	
 				listaObrasCliente.addElement(obra);
 				canalIndustrial.setObras(listaObrasCliente);
+				obras.setObjetos(obras.getObjetos());
 				Dialog.inform("La obra se asoció correctamente");      	
 	        	close();
         	}

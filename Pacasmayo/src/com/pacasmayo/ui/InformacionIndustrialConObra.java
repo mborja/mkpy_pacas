@@ -9,6 +9,7 @@ import com.pacasmayo.dao.CanalIndustrialDB;
 import com.pacasmayo.dao.InformacionCIDB;
 
 import com.pacasmayo.dao.UsuarioDB;
+import com.pacasmayo.dao.ObraDB;
 import com.pacasmayo.entidades.CanalIndustrial;
 import com.pacasmayo.entidades.InformacionCI;
 import com.pacasmayo.entidades.Obra;
@@ -91,6 +92,17 @@ public class InformacionIndustrialConObra extends MainScreen implements ListFiel
         public void run() {
         	if(Dialog.ask(Dialog.D_YES_NO, "¿Está seguro de borrar la obra?") == Dialog.YES ){
         		Vector v = canalIndustrial.getObras();
+        		ObraDB obras = new ObraDB();
+        		Vector lsobras = obras.getObjetos();
+        		Obra obra,obrasel;
+        		obrasel = (Obra) v.elementAt(lstObras.getSelectedIndex());
+        		for(int i=0;i<lsobras.size()-1;i++){
+        			obra = (Obra) lsobras.elementAt(i);
+        			if(obra.getCodigo()==obrasel.getCodigo())
+        				obra.setDesactivado(false);
+        		}
+        		obras.setObjetos(lsobras);
+        		
         		v.removeElementAt(lstObras.getSelectedIndex());
         		canalIndustrial.setObras(v);
         		Dialog.inform("La obra fue borrada");
