@@ -64,10 +64,11 @@ public class InformacionIndustrialConObra extends MainScreen implements ListFiel
         add(lstObras);
     	
         nVisitas = result.size();
-        if(nVisitas==0){
+        
+        //if(nVisitas==0){
         	addMenuItem(mnSeleccionar);
         	addMenuItem(mnVisita);
-        }
+        //}
 
         addMenuItem(mnEliminar);
         lstObras.select(true);

@@ -251,18 +251,31 @@ public class IngresoDatosCI extends MainScreen implements FieldChangeListener, F
 //    		} else {
 //    			fecha = canalIndustrial.getFecha();
 //    		}
-        	
-    		progress.open();
-    		progress.setTitle("Grabando...");
+    		
     		if ( informacion == null ) {
     			nuevo = true;
-    			informacion = new InformacionCI();
     		}
-    		informacion.setIdTipoObra(tipoObra.getCodigo());
-    		informacion.setTipoObra(tipoObra.getDescripcion());
     		
     		if(nuevo){
-
+	    		//TODO:Jesus pidio que no se pueda ingresar mas de una visita con la misma marca y producto
+	    		Vector datosRegistrados =  informes.getObjetosByIdClienteFechasObra(canalIndustrial.getCodigo(), canalIndustrial.getFecha(), obra);
+	    		for(int idx=0;idx<datosRegistrados.size();idx++){
+	    			InformacionCI info = (InformacionCI) datosRegistrados.elementAt(idx);
+	    			if(info.getMarca().equals(cboMarca.getOpciones().getChoice(cboMarca.getSelectedIndex()))
+	    			   && info.getProducto().equals(cboProducto.getOpciones().getChoice(cboProducto.getSelectedIndex()))){
+	    				Dialog.inform("Ya ingresó una visita con este producto y marca");
+	            		return;
+	    			}
+	    		} 
+    		}
+    		        	
+    		progress.open();
+    		progress.setTitle("Grabando...");
+    		
+    		if(nuevo){
+        		informacion = new InformacionCI();
+        		informacion.setIdTipoObra(tipoObra.getCodigo());
+        		informacion.setTipoObra(tipoObra.getDescripcion());
     			Producto producto;	
 	    		for(int i=0;i<productos.getObjetos().size();i++){
 	    			producto = (Producto) productos.getObjetos().elementAt(i);
@@ -314,11 +327,9 @@ public class IngresoDatosCI extends MainScreen implements FieldChangeListener, F
         		Date fechaObra = Fechas.stringToDate(canalIndustrial.getFecha()) ;
         		informacion.setFecha(Fechas.dateToString(fechaObra,"yyyyMMdd"));
     		}
-    		
-    		//999326702
-    		
+    		    		
     		informacion.setEnviado(false);
-    		
+    		    		
     		if ( nuevo == true ) {
             	informes.getObjetos().addElement(informacion);
     		}

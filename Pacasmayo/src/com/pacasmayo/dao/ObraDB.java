@@ -100,6 +100,7 @@ public class ObraDB {
                 registro = contactNode.getChildNodes().item(0).getNodeValue();
                 fields = Cadenas.splitSimple(registro, Cadenas.TOKEN);
                 Obra item = new Obra();
+                item.setDesactivado(false);
                 item.setCodigo(fields[0]);
                 item.setNombre(fields[1].concat("                     "));
                 if(fields.length<3)
@@ -162,6 +163,15 @@ public class ObraDB {
     
     public Vector getObjetos() {
         return objetos;
+    }
+    
+    public Vector getObjetosActivos() {
+    	Vector respuesta = new Vector();
+    	for(int i=0;i<objetos.size();i++){
+    		Obra temp = (Obra) objetos.elementAt(i);
+    		if(!temp.isDesactivado()) respuesta.addElement(temp);
+    	}
+        return respuesta;
     }
 
 	public int getState() {

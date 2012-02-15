@@ -101,9 +101,27 @@ public class InformacionIndustrialConObraSeleccionar extends MainScreen implemen
 	        	obra.setDescripcion(obraSeleccion.getDescripcion());
 	        	Vector listaObrasCliente = canalIndustrial.getObrasByFechaCI();
 	        	
-	        	listaObrasCliente.addElement(obra);
-	        		canalIndustrial.setObras(listaObrasCliente );
-	        		Dialog.inform("La obra se asoció correctamente");      	
+	        	for(int i=0;i<listaObrasCliente.size()-1;i++)
+	        	{
+	        		 Obra temp = (Obra) listaObrasCliente.elementAt(i);
+	        		 if(obra.getCodigo()==temp.getCodigo()){
+	        			 Dialog.inform("Esta obra ya fue asocida");
+	        			 return;
+	        		 }
+	        	}
+	        	
+	        	//MBL : Desactiva obra en la lista general
+	        	Obra obraParaDesactivar;
+	        	for(int o=0;o<=obras.getObjetos().size()-1;o++){
+	        		obraParaDesactivar=(Obra)obras.getObjetos().elementAt(o);
+	        		if(obra.getCodigo()==obraParaDesactivar.getCodigo()){
+	        			obraParaDesactivar.setDesactivado(true);
+	        		}
+	        	}
+	        	
+				listaObrasCliente.addElement(obra);
+				canalIndustrial.setObras(listaObrasCliente);
+				Dialog.inform("La obra se asoció correctamente");      	
 	        	close();
         	}
         	else
@@ -129,33 +147,32 @@ public class InformacionIndustrialConObraSeleccionar extends MainScreen implemen
 	private void buscar() {
 		progress.open();
 		progress.setTitle("Buscando...");
-		
 		liContObras=0;
 		sTextoBusqueda= txtBuscar.getText().getText().toUpperCase();
-		
 		if(sTextoBusqueda.equals("")==false){
-		    	
-    	int n = obras.getObjetos().size();
-    	result = new Vector();
-    	//result.addElement(new CanalMasivo());
-    	Obra lsObra = new Obra();
-		String lsNombre="";
-		//int liCont =0;
-		
-    	for ( int i = 0; i < n; i++) {
-    		lsObra = (Obra)obras.getObjetos().elementAt(i);
-    		lsNombre = lsObra.getNombre();
-    		if(lsNombre.startsWith(sTextoBusqueda))
-    		{
-    		result.addElement(obras.getObjetos().elementAt(i));
-    		liContObras++;
-    		}
-    	}
-    	if ( lstObras != null ) {
-    		//lstObras.setSize(result.size());
-    		lstObras.setSize(liContObras);
-    		lstObras.invalidate();
-    	}
+	    	int n = obras.getObjetos().size();
+	    	result = new Vector();
+	    	Obra lsObra;
+			String lsNombre="";
+			String repetir="";
+	    	for ( int i = 0; i < n; i++) {
+	    		lsObra = (Obra)obras.getObjetos().elementAt(i);
+	    		if(!lsObra.isDesactivado()){
+		    		lsNombre = lsObra.getNombre();
+		    		if(lsNombre.startsWith(sTextoBusqueda)){
+/*		    			if(repetir==lsObra.getNombre())
+		    				Dialog.inform("repetido");*/
+			    		result.addElement(lsObra);
+		    		}
+	    		}else{
+	    		/*	repetir=lsObra.getNombre();
+	    			Dialog.inform(lsObra.getNombre().concat(" : Desactivado"));*/
+	    		}
+	    	}
+	    	if ( lstObras != null ) {
+	    		lstObras.setSize(result.size());
+	    		lstObras.invalidate();
+	    	}
 		}
 		progress.close();
 	}
@@ -189,61 +206,22 @@ public class InformacionIndustrialConObraSeleccionar extends MainScreen implemen
 	            g.drawText("Nombre Obra", 0, y, DrawStyle.RIGHT, w);
 	        }
 		}
-		if ( list == lstObras ) {
-			
-			
-
-        		Obra temp = get(index);
-        		
-        			  if ( list.getSelectedIndex() == index && field == lstObras ) {
-              			
-        		      }
-        			  else {
-        		            g.setColor(Color.BLACK);
-        	                g.setBackgroundColor(Estilos.getBGInterlinea(index));
-        		            g.clear();
-        			  }
-        			  
-        			  g.drawText(temp.getCodigo(), 0, y, DrawStyle.LEFT, w);
-            		  g.drawText(temp.getNombre().substring(0, 20), 0, y, DrawStyle.RIGHT, w);
-        		
-        		
-        	
-//        	if(sTextoBusqueda.trim().equals("")==false){
-//        		
-//        		Obra temp = get(index);
-//        		String sNombre = temp.getNombre();
-//        		
-//        		if(sNombre.startsWith(sTextoBusqueda)){
-//        			  if ( list.getSelectedIndex() == index && field == lstObras ) {
-//        					
-//              			g.drawText(temp.getCodigo(), 0, y, DrawStyle.LEFT, w);
-//              			sNombre = sNombre.substring(0,20);
-//              			g.drawText(sNombre, 0, y, DrawStyle.LEFT, w);
-//        		      }
-//        			  else {
-//        		            g.setColor(Color.BLACK);
-//        	                g.setBackgroundColor(Estilos.getBGInterlinea(index));
-//        		            g.clear();
-//        		            
-//        		            
-//        			  }
-//        			  
-//        		
-//        		}
-//        	}
-        	
-			
-	      
-//	        if( index == 0 ) {
-//	        } else {
-	        
-	        
+		if(list==lstObras) {
+			Obra temp = get(index);
+			if(list.getSelectedIndex() == index && field == lstObras ) {
+			      			
+			}else{
+			    g.setColor(Color.BLACK);
+			    g.setBackgroundColor(Estilos.getBGInterlinea(index));
+			    g.clear();
+			}        			  
+			g.drawText(temp.getCodigo(), 0, y, DrawStyle.LEFT, w);
+			g.drawText(temp.getNombre().substring(0, 20), 0, y, DrawStyle.RIGHT, w);
 		}
     }
 
     public Obra get(int index) {
-        return (Obra) obras.getObjetos().elementAt(index); // opciones[index];
+        return (Obra) result.elementAt(index); // opciones[index];
     }
 
     public int getPreferredWidth(ListField arg0) {

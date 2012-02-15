@@ -14,6 +14,7 @@ public class Obra  implements Persistable {
 	private String descripcion;
 	private String fecha;
 	private String generadoEnCelular;
+	private boolean desactivado;
 	
 	public String getGeneradoEnCelular() {
 		return generadoEnCelular;
@@ -71,4 +72,11 @@ public class Obra  implements Persistable {
 	public void setCodigows(String codigows) {
 		this.codigows = codigows;
 	}
+	public boolean isDesactivado() {
+		return desactivado;
+	}
+	public void setDesactivado(boolean desactivado) {
+		this.desactivado = desactivado;
+	}
+	
 }
