@@ -35,7 +35,7 @@ import com.pacasmayo.utilidades.Sistema;
 public class MarcaDBCI {
 	private static final String RESPONSE_OK = "1";
     private static final String metodoWeb = "getListadoMarcasCI";
-    private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-ListasMaestras1", DATA;
+    private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-ListasMaestras", DATA;
     private static PersistentObject persist;
     private static final long IDSTORE = 0x34c567a93baa6ca9L; // com.pacasmayo.entidades.MarcaCI    
     private Vector objetos;

@@ -30,7 +30,7 @@ import com.pacasmayo.utilidades.Sistema;
 public class InformacionCIDB {
 	private static final String RESPONSE_OK = "1";
     private static final String metodoWeb = "setEnvioRegistroCanalIndustrial";
-    private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-EnvioRegistroCanalIndustrial1", DATA;
+    private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-EnvioRegistroCanalIndustrial", DATA;
     private static PersistentObject persist;
     private static final long IDSTORE = 0x678feecf6df5bd9aL; // com.pacasmayo.entidades.InformacionCI
     private Vector objetos;

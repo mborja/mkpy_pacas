@@ -29,7 +29,7 @@ import com.pacasmayo.utilidades.Sistema;
 public class InformacionCMDB {
 	private static final String RESPONSE_OK = "1";
     private static final String metodoWeb = "setEnvioRegistroCanalMasivo";
-    private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-EnvioRegistroCanalMasivo1", DATA;
+    private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-EnvioRegistroCanalMasivo", DATA;
     private static PersistentObject persist;
     private static final long IDSTORE = 0x425af6d095f1b835L; // com.pacasmayo.entidades.InformacionCM    
     private Vector objetos;

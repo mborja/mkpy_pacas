@@ -35,7 +35,7 @@ import com.pacasmayo.utilidades.Sistema;
 public class ProductoDB {
 	private static final String RESPONSE_OK = "1";
     private static final String metodoWeb = "getListadoProductoD";
-    private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-ListasMaestras1", DATA;
+    private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-ListasMaestras", DATA;
     private static PersistentObject persist;
     private static final long IDSTORE = 0x321af6df9c11ba2aL; // com.pacasmayo.entidades.ProductoDB    
     private Vector objetos;

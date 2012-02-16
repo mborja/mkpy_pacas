@@ -37,7 +37,7 @@ import com.pacasmayo.utilidades.Sistema;
 public class TipoUsuarioDB {
 	private static final String RESPONSE_OK = "1";
     private static final String metodoWeb = "getTipoVendedor";
-    private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-ListasMaestras1", DATA;
+    private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-ListasMaestras", DATA;
     private static PersistentObject persist;
     private static final long IDSTORE = 0x71f1fbc702e93ed9L; // com.pacasmayo.entidades.TipoUsuarioDB    
     private Vector objetos;

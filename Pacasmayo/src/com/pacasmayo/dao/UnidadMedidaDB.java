@@ -35,7 +35,7 @@ import com.pacasmayo.utilidades.Sistema;
 public class UnidadMedidaDB {
 	private static final String RESPONSE_OK = "1";
     private static final String metodoWeb = "getListadoUnidadM";
-    private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-ListasMaestras1", DATA;
+    private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-ListasMaestras", DATA;
     private static PersistentObject persist;
     private static final long IDSTORE = 0x9a80c66f56908266L; // com.pacasmayo.entidades.UnidadMedidaDB    
     private Vector objetos;

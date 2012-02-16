@@ -35,7 +35,7 @@ import com.pacasmayo.utilidades.Sistema;
 public class FrecuenciaDB {
 	private static final String RESPONSE_OK = "1";
     private static final String metodoWeb = "getListadoFrecuencia";
-    private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-ListasMaestras1", DATA;
+    private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-ListasMaestras", DATA;
     private static PersistentObject persist;
     private static final long IDSTORE = 0x71f1fbc702e93ed9L; // com.pacasmayo.entidades.FrecuencuiaDB    
     private Vector objetos;

@@ -35,7 +35,7 @@ import com.pacasmayo.utilidades.Sistema;
 public class ObraDB {
 	private static final String RESPONSE_OK = "1";
     private static final String metodoWeb = "getListadoCuadroObra";
-    private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-ListasMaestras1", DATA;
+    private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-ListasMaestras", DATA;
     private static PersistentObject persist;
     private static final long IDSTORE = 0xbd7748bc9ec8a445L; // com.pacasmayo.entidades.ObraDB    
     private Vector objetos;

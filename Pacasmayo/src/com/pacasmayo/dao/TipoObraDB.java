@@ -35,7 +35,7 @@ import com.pacasmayo.utilidades.Sistema;
 public class TipoObraDB {
 	private static final String RESPONSE_OK = "1";
     private static final String metodoWeb = "getListadoTipoObraCI";
-    private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-ListasMaestras1", DATA;
+    private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-ListasMaestras", DATA;
     private static PersistentObject persist;
     private static final long IDSTORE = 0x82996e0f833f548cL; // com.pacasmayo.entidades.TipoObraDB    
     private Vector objetos;

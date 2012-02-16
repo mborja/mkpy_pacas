@@ -5,7 +5,7 @@ import com.pacasmayo.entidades.Usuario;
 import com.pacasmayo.ui.Autenticar;
 import com.pacasmayo.ui.MenuOpciones;
 import com.pacasmayo.utilidades.Sistema;
-import com.pacasmayo.utilidades.Cadenas;
+//import com.pacasmayo.utilidades.Cadenas;
 
 import net.rim.device.api.ui.UiApplication;
 import net.rim.device.api.ui.component.Dialog;

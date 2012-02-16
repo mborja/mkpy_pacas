@@ -35,7 +35,7 @@ import com.pacasmayo.entidades.Obra;
 public class CanalIndustrialDB {
 	private static final String RESPONSE_OK = "1";
     private static final String metodoWeb = "getListadoClientesCanalIndustrial";
-    private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-ListadoClientesCanalIndustrial1", DATA;
+    private static String URL = Cadenas.URLBASE + "/portal/clientes/diBlackBerry.nsf/WS-ListadoClientesCanalIndustrial", DATA;
     private static PersistentObject persist;
     private static final long IDSTORE = 0xe71402654086f9a4L; // com.pacasmayo.entidades.CanalIndustrial    
     private Vector objetos;
